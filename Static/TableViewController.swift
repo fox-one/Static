@@ -31,12 +31,14 @@ open class TableViewController: UIViewController {
         tableView = UITableView(frame: .zero, style: style)
         super.init(nibName: nil, bundle: nil)
         dataSource.tableView = tableView
+
     }
 
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         tableView = UITableView(frame: .zero, style: .plain)
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         dataSource.tableView = tableView
+   
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -47,12 +49,17 @@ open class TableViewController: UIViewController {
         self.init(style: .plain)
     }
 
-
     // MARK: - UIViewController
-
-    open override func loadView() {
+    
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(tableView)
         tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view = tableView
+    }
+    
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.frame = view.bounds
     }
 
     open override func viewWillAppear(_ animated: Bool) {
